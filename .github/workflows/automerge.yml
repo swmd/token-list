@@ -28,13 +28,10 @@ jobs:
           FILES: |
             src/tokens/solana.tokenlist.json
 
-      - uses: reitermarkus/automerge@v1.5.2
-        if: steps.git_diff.outputs.insertions == 0
+      - name: Merge pull request
+        # if: steps.git_diff.outputs.insertions == 0
+        uses: reitermarkus/automerge@v1.5.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: rebase
           do-not-merge-labels: never-merge
-
-      - name: Deleted files
-        if: steps.git_diff.outputs.insertions > 0
-        run: echo "Deleted ${{ steps.git_diff.outputs.insertions }} lines."
