@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: 0 * * * *
   pull_request_target:
+  push:
+    branches:
+      - main
     types:
       - opened
       - synchronized
@@ -14,10 +17,22 @@ on:
       - ready_for_review
 
 jobs:
-  automerge:
+  auto-merge:
     runs-on: ubuntu-latest
     steps:
-      - uses: reitermarkus/automerge@v1.5.2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get changes
+        id: git_diff
+        uses: technote-space/get-diff-action@v5
+        with:
+          FILES: |
+            src/tokens/solana.tokenlist.json
+
+      - name: Merge pull request
+        if: steps.git_diff.outputs.insertions == 0
+        uses: reitermarkus/automerge@v1.5.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: rebase
