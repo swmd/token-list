@@ -2,7 +2,6 @@ name: Automerge
 
 on:
   pull_request:
-  push:
     branches:
       - main
 
@@ -19,12 +18,14 @@ jobs:
         with:
           FILES: |
             src/tokens/solana.tokenlist.json
-          FORMAT: json
 
-      - run: echo ${{ steps.git_diff.outputs.insertions }} | jq .
+      - uses: reitermarkus/automerge@v1.5.2
+        if: steps.git_diff.outputs.insertions == 0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          merge-method: rebase
+          do-not-merge-labels: never-merge
 
-      # - uses: reitermarkus/automerge@v1.5.2
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     merge-method: rebase
-      #     do-not-merge-labels: never-merge
+      - run: Deleted files
+        if: steps.git_diff.outputs.insertions > 0
+        run: echo "Deleted ${{ steps.git_diff.outputs.insertions }} lines."
