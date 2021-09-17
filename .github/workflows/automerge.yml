@@ -2,7 +2,9 @@ name: Automerge
 
 on:
   pull_request:
-    branches: [ main ]
+  push:
+    branches:
+      - main
 
 jobs:
   auto-merge:
@@ -11,18 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - run: git checkout auto-merge
-
       - name: Get changes
-        id: git-diff
+        id: git_diff
         uses: technote-space/get-diff-action@v5
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILES: |
             src/tokens/solana.tokenlist.json
           FORMAT: json
 
-      - run: echo '${{ env.GIT_DIFF }}' | jq .
+      - run: echo ${{ steps.git_diff.outputs.insertions }} | jq .
 
       # - uses: reitermarkus/automerge@v1.5.2
       #   with:
