@@ -33,7 +33,7 @@ jobs:
             src/tokens/solana.tokenlist.json
 
       - name: Merge pull request
-        if: steps.git_diff.outputs.insertions == 0
+        if: steps.git_diff.outputs.deletions == 0
         uses: reitermarkus/automerge@v1.5.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
