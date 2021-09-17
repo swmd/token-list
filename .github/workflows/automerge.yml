@@ -2,7 +2,6 @@ name: Automerge
 
 on:
   pull_request_target:
-  push:
     branches:
       - main
     types:
@@ -35,6 +34,6 @@ jobs:
           merge-method: rebase
           do-not-merge-labels: never-merge
 
-      - run: Deleted files
+      - name: Deleted files
         if: steps.git_diff.outputs.insertions > 0
         run: echo "Deleted ${{ steps.git_diff.outputs.insertions }} lines."
