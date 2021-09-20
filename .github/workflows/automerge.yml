@@ -22,12 +22,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Get changes
         id: git_diff
-        uses: technote-space/get-diff-action@v5
+        uses: swmd/get-diff-action@v5.0.2
         with:
           FILES: |
             src/tokens/solana.tokenlist.json
