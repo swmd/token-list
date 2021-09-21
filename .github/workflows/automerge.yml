@@ -25,15 +25,15 @@ jobs:
 
       - name: Get changes
         id: git_diff
-        uses: swmd/get-pr-diff@v0.0.1
+        uses: swmd/get-pr-diff@v0.0.3
         with:
           FILES: |
             src/tokens/solana.tokenlist.json
 
-      - name: Merge pull request
-        if: steps.git_diff.outputs.deletions == 0
-        uses: reitermarkus/automerge@v1.5.2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: rebase
-          do-not-merge-labels: never-merge
+      # - name: Merge pull request
+      #   if: steps.git_diff.outputs.deletions == 0
+      #   uses: reitermarkus/automerge@v1.5.2
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     merge-method: rebase
+      #     do-not-merge-labels: never-merge
