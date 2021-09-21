@@ -25,10 +25,9 @@ jobs:
 
       - name: Get changes
         id: git_diff
-        uses: swmd/get-pr-diff@v0.0.4
+        uses: swmd/get-pr-diff@v0.0.5
         with:
-          FILES: |
-            src/tokens/solana.tokenlist.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # - name: Merge pull request
       #   if: steps.git_diff.outputs.deletions == 0
