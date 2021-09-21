@@ -25,7 +25,7 @@ jobs:
 
       - name: Get changes
         id: git_diff
-        uses: swmd/get-pr-diff@v0.0.5
+        uses: swmd/get-pr-diff@v0.0.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
