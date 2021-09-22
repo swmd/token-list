@@ -25,12 +25,12 @@ jobs:
 
       - name: Get changes
         id: git_diff
-        uses: swmd/get-pr-diff@v0.1.1
+        uses: swmd/get-pr-diff@v0.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge pull request
-        if: steps.git_diff.outputs.valid == true
+        if: ${{ steps.git_diff.outputs.valid === 'VALID' }}
         uses: reitermarkus/automerge@v1.5.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
