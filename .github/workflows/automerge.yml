@@ -1,8 +1,6 @@
 name: Automerge
 
 on:
-  schedule:
-    - cron: 0 * * * *
   pull_request_target:
   push:
     branches:
@@ -31,8 +29,7 @@ jobs:
 
       - name: Merge pull request
         if: ${{ steps.git_diff.outputs.valid == 'VALID' }}
-        uses: reitermarkus/automerge@v1.5.2
+        uses: ridedott/merge-me-action@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: rebase
-          do-not-merge-labels: never-merge
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRESET: DEPENDABOT_PATCH
