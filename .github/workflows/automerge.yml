@@ -30,7 +30,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge pull request
-        if: ${{ steps.git_diff.outputs.valid === 'VALID' }}
+        if: ${{ steps.git_diff.outputs.valid == 'VALID' }}
         uses: reitermarkus/automerge@v1.5.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
